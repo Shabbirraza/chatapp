@@ -13,7 +13,7 @@ import Singlechat from '../components/NavbarChats/Singlechat';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollection, useCollectionDataOnce, useCollectionOnce, useDocument } from 'react-firebase-hooks/firestore';
 import Loader from '../components/Loader/page';
-import ChatWindow from '../components/ChatWindow/page';
+import ChatWindow from '../components/ChatWindow/ChatWindow';
 
 
 const layout = {
