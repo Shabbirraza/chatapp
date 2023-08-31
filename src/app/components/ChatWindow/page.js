@@ -31,7 +31,7 @@ const ChatWindow = ({ chatWith, currentuser }) => {
             setMessages([...cities])
 
         });
-    }, [chatWith.email])
+    }, [chatWith?.email])
 
 
 
@@ -40,12 +40,12 @@ const ChatWindow = ({ chatWith, currentuser }) => {
             <div className='grow w-full  bg-blue-100 rounded-xl  overflow-y-scroll  no-scrollbar overflow-x-hidden p-3'>
                 {messages.length > 0? messages?.map((value, index) => {
                     return (<div className={`flex flex-col my-1`} key={index}>
-                        <span className={`${value.createdBy == currentuser.email ? "self-end" : "self-start"} bg-green-400 text-white p-1 rounded-lg `}>{value.content}</span></div>)
+                        <span className={`${value.createdBy == currentuser?.email ? "self-end" : "self-start"} bg-green-400 text-white p-1 rounded-lg `}>{value.content}</span></div>)
                 }):<div className='text-center font-bold text-6xl text-white'>start chat</div>}
 
             </div>
             <div className='w-[80%] flex p-1'>
-                <input value={inputVal} onChange={handlechange} placeholder={`send message to ${chatWith ? `${chatWith.email}` : ''}`} className='p-2 rounded-xl border-2 border-black  w-[70%]' />
+                <input value={inputVal} onChange={handlechange} placeholder={`send message to ${chatWith ? `${chatWith?.email}` : ''}`} className='p-2 rounded-xl border-2 border-black  w-[70%]' />
                 <button className='p-2 bg-green-500 text-white rounded-xl ml-2'
                     onClick={async () => {
                         if(inputVal.length > 0){
