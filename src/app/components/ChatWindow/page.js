@@ -10,8 +10,8 @@ const ChatWindow = ({ chatWith, currentuser }) => {
         setInputval(e.target.value)
         console.log(inputVal)
     }
-    console.log("current user in chat window", currentuser.email)
-    console.log("current user in chat window", chatWith.email)
+    console.log("current user in chat window", currentuser?.email)
+    console.log("current user in chat window", chatWith?.email)
     let arr = [currentuser?.email, chatWith?.email]
     let newArr = arr.sort()
     let newRef = `conversations/${newArr[0] + newArr[1]}/messages`
