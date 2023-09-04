@@ -24,7 +24,7 @@ let signout =()=>{
 
 
     return (
-        <div className='w-full bg-green-400 px-16 py-3 flex justify-between items-center'>
+        <div className='w-full bg-green-400 px-5 md:px-16 py-3 flex justify-between items-center'>
             <div className=''>
                 <Avatar size={80} src={<img src={currentuser?.url} alt="avatar" />} />
             </div>

@@ -91,28 +91,28 @@ const Signup = () => {
     // },[])
 
     const [form] = Form.useForm();
-    let createUserdataFirestore = (id, dataObj) => {
-        const docRef = doc(db, "users", id);
-        setDoc(docRef, dataObj)
-            .then(() => {
+    // let createUserdataFirestore = (id, dataObj) => {
+    //     const docRef = doc(db, "users", id);
+    //     setDoc(docRef, dataObj)
+    //         .then(() => {
 
-                console.log("Document has been added successfully in firestore");
-                setWaitMessage('')
-                setSucessMsg("Sign Up sucessfull you will be redirected ")
-                router.push('/Chats')
-                
+    //             console.log("Document has been added successfully in firestore");
+    //             setWaitMessage('')
+    //             setSucessMsg("Sign Up sucessfull you will be redirected ")
+    //             router.push('/Chats')
 
-            })
-            .catch(error => {
-                console.log(error);
-                setWaitMessage('')
-                setErrMessage(error)
-                setTimeout(() => {
-                    setErrMessage('')
-                }, 1000);
-            })
 
-    }
+    //         })
+    //         .catch(error => {
+    //             console.log(error);
+    //             setWaitMessage('')
+    //             setErrMessage(error)
+    //             setTimeout(() => {
+    //                 setErrMessage('')
+    //             }, 1000);
+    //         })
+
+    // }
 
     let createNewUser = async (email, password, file, initialData) => {
         createUserWithEmailAndPassword(auth, email, password)
@@ -129,7 +129,26 @@ const Signup = () => {
                             console.log(url)
                             initialData["url"] = url
                             initialData["id"] = userCredential.user.uid
-                            createUserdataFirestore(userCredential.user.uid, initialData)
+                            // createUserdataFirestore(userCredential.user.uid, initialData)
+                            const docRef = doc(db, "users", userCredential.user.uid);
+                            setDoc(docRef, initialData)
+                                .then(() => {
+
+                                    console.log("Document has been added successfully in firestore");
+                                    setWaitMessage('')
+                                    setSucessMsg("Sign Up sucessfull you will be redirected ")
+                                    router.push('/Chats')
+
+
+                                })
+                                .catch(error => {
+                                    console.log(error);
+                                    setWaitMessage('')
+                                    setErrMessage(error)
+                                    setTimeout(() => {
+                                        setErrMessage('')
+                                    }, 1000);
+                                })
 
                         })
                         .catch((error) => {
@@ -159,7 +178,8 @@ const Signup = () => {
                 const errorMessage = error.message;
                 setWaitMessage('')
                 console.log(errorMessage)
-                setErrMessage(err)
+                setErrMessage(errorMessage)
+                setLoader(false)
                 setTimeout(() => {
                     setErrMessage('')
                 }, 1000);
@@ -186,116 +206,113 @@ const Signup = () => {
 
 
 
-    return (<>{!loading && !user ? 
-    <div className='flex flex-col items-center justify-center h-screen'>
+    return (<>{!loading && !user ?
+        <div className='flex flex-col items-center justify-center h-screen'>
 
 
-        <h1 className='font-extrabold text-xl'> SignUp</h1>
-        {sucessMsg ? <div className='bg-green-600 text-center text-white font-semibold rounded-xl p-4 w-[40%] my-4'>{sucessMsg}</div>
-            :
-            errMessage ? <div className='bg-red-600 text-center text-white font-semibold rounded-xl p-4 w-[40%] my-4'>{errMessage}</div> :
-                waitMessage ? <div className='bg-blue-600 text-center text-white font-semibold rounded-xl p-4 w-[40%] my-4'>{waitMessage}</div> : null}
-        <Form
-            className='shadow-xl bg-white shadow-black rounded-2xl p-4'
-            labelAlign='left'
-            {...formItemLayout}
-            form={form}
-            name="register"
-            onFinish={onFinish}
-            initialValues={{
-                residence: ['zhejiang', 'hangzhou', 'xihu'],
-                prefix: '86',
-            }}
-            style={{
-                maxWidth: 700,
-            }}
-            scrollToFirstError
-        >
-            <Form.Item
-                name="email"
-                label="E-mail"
-                rules={[
-                    {
-                        type: 'email',
-                        message: 'The input is not valid E-mail!',
-                    },
-                    {
-                        required: true,
-                        message: 'Please input your E-mail!',
-                    },
-                ]}
+            <h1 className='font-extrabold text-xl'> SignUp</h1>
+            {sucessMsg ? <div className='bg-green-600 text-center text-white font-semibold rounded-xl p-4 w-[40%] my-4'>{sucessMsg}</div>
+                :
+                errMessage ? <div className='bg-red-600 text-center text-white font-semibold rounded-xl p-4 w-[40%] my-4'>{errMessage}</div> :
+                    waitMessage ? <div className='bg-blue-600 text-center text-white font-semibold rounded-xl p-4 w-[40%] my-4'>{waitMessage}</div> : null}
+            <Form
+                className='shadow-xl bg-white shadow-black rounded-2xl p-4'
+                labelAlign='left'
+                {...formItemLayout}
+                form={form}
+                name="register"
+                onFinish={onFinish}
+
+                style={{
+                    maxWidth: 700,
+                }}
+                scrollToFirstError
             >
-                <Input />
-            </Form.Item>
-
-            <Form.Item
-                name="password"
-                label="Password"
-                rules={[
-                    {
-                        required: true,
-                        message: 'Please input your password!',
-                    },
-                ]}
-                hasFeedback
-            >
-                <Input.Password minLength={8} />
-            </Form.Item>
-
-            <Form.Item
-                name="confirm"
-                label="Confirm Password"
-                dependencies={['password']}
-                hasFeedback
-                rules={[
-                    {
-                        required: true,
-                        message: 'Please confirm your password!',
-                    },
-                    ({ getFieldValue }) => ({
-                        validator(_, value) {
-                            if (!value || getFieldValue('password') === value) {
-                                return Promise.resolve();
-                            }
-                            return Promise.reject(new Error('The new password that you entered do not match!'));
+                <Form.Item
+                    name="email"
+                    label="E-mail"
+                    rules={[
+                        {
+                            type: 'email',
+                            message: 'The input is not valid E-mail!',
                         },
-                    }),
-                ]}
-            >
-                <Input.Password minLength={8} />
-            </Form.Item>
+                        {
+                            required: true,
+                            message: 'Please input your E-mail!',
+                        },
+                    ]}
+                >
+                    <Input />
+                </Form.Item>
 
+                <Form.Item
+                    name="password"
+                    label="Password"
+                    rules={[
+                        {
+                            required: true,
+                            message: 'Please input your password!',
+                        },
+                    ]}
+                    hasFeedback
+                >
+                    <Input.Password minLength={8} />
+                </Form.Item>
 
-
-
-
-
-            <Form.Item label="Dragger">
-                <Form.Item name="dragger" valuePropName="fileList" getValueFromEvent={normFile} noStyle
-                    wrapperCol={2}
+                <Form.Item
+                    name="confirm"
+                    label="Confirm Password"
+                    dependencies={['password']}
+                    hasFeedback
                     rules={[
                         {
                             required: true,
                             message: 'Please confirm your password!',
                         },
-                    ]}>
-                    <Upload.Dragger name="files" action="/upload.do">
-                        <p className="ant-upload-drag-icon">
-                            <InboxOutlined />
-                        </p>
-                        <p className="ant-upload-text">Click or drag file to this area to upload</p>
-                        <p className="ant-upload-hint">Support for a single or bulk upload.</p>
-                    </Upload.Dragger>
+                        ({ getFieldValue }) => ({
+                            validator(_, value) {
+                                if (!value || getFieldValue('password') === value) {
+                                    return Promise.resolve();
+                                }
+                                return Promise.reject(new Error('The new password that you entered do not match!'));
+                            },
+                        }),
+                    ]}
+                >
+                    <Input.Password minLength={8} />
                 </Form.Item>
-            </Form.Item>
 
-            <Form.Item {...tailFormItemLayout}>
-                <Button loading={loader} type="primary" htmlType="submit" className='bg-blue-900'>
-                    Register
-                </Button>
-            </Form.Item>
-        </Form>
-    </div > : <Loader />}</>
+
+
+
+
+
+                <Form.Item label="Dragger">
+                    <Form.Item name="dragger" valuePropName="fileList" getValueFromEvent={normFile} noStyle
+                        wrapperCol={2}
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Please input profile pic',
+                            },
+                        ]}>
+                        <Upload.Dragger name="files">
+                            <p className="ant-upload-drag-icon">
+                                <InboxOutlined />
+                            </p>
+                            <p className="ant-upload-text">Click or drag file to this area to upload</p>
+                            <p className="ant-upload-hint">Support for a single or bulk upload.</p>
+                        </Upload.Dragger>
+                    </Form.Item>
+                </Form.Item>
+
+                <Form.Item {...tailFormItemLayout}>
+                    <Button loading={loader} type="primary" htmlType="submit" className='bg-blue-900'>
+                        Register
+                    </Button>
+                </Form.Item>
+            </Form>
+        </div > : <Loader />}</>
 
 
 

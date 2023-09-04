@@ -40,7 +40,7 @@ const ChatWindow = ({ chatWith, currentuser }) => {
             <div className='grow w-full  bg-blue-100 rounded-xl  overflow-y-scroll  no-scrollbar overflow-x-hidden p-3'>
                 {messages.length > 0? messages?.map((value, index) => {
                     return (<div className={`flex flex-col my-1`} key={index}>
-                        <span className={`${value.createdBy == currentuser?.email ? "self-end" : "self-start"} bg-green-400 text-white p-1 rounded-lg `}>{value.content}</span></div>)
+                        <span className={`${value.createdBy == currentuser?.email ? "self-end" : "self-start"} bg-green-400 text-[9px] text-white p-1 rounded-lg break-all`}>{value.content}</span></div>)
                 }):<div className='text-center font-bold text-6xl text-white'>start chat</div>}
 
             </div>
