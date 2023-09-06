@@ -26,11 +26,11 @@ export default function Home() {
   }, [])
   return (<>
 
-    <div className='min-h-screen pt-10 '>
+    <div className='h-screen pt-10 '>
       {/* <SearchInput /> */}
       <h1 className='text-5xl sm:text-8xl text-cyan-950 text-center font-extrabold p-2 '>ChatAppp</h1>
       <section className="text-gray-600 body-font">
-        <div className="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
+        <div className="container mx-auto flex px-5 py-20 md:flex-row flex-col items-center">
           <div className="lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
             <h1 className="title-font sm:text-8xl text-5xl md:text-6xl lg:text-8xl mb-4 font-extrabold text-gray-900">ChatApp
 

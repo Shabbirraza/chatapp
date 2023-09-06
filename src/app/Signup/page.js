@@ -17,6 +17,7 @@ import { collection, setDoc, doc } from "firebase/firestore";
 import { useRouter } from 'next/navigation';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import Loader from '../components/Loader/page';
+import Link from 'next/link';
 
 
 
@@ -311,8 +312,11 @@ const Signup = () => {
                         Register
                     </Button>
                 </Form.Item>
+                <Form.Item>
+                    <p className='text-center'>Already have an account<b><Link href='/Login'>Login</Link></b></p>
+                </Form.Item>
             </Form>
-        </div > : <Loader />}</>
+        </div > : user ? router.push('/'):<Loader />}</>
 
 
 

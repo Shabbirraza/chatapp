@@ -120,10 +120,10 @@ const Chats = () => {
         
 
         <div className='h-screen flex flex-col'>
-            {loading ? <Loader /> : <>
+            {loading || loadingUsers ? <Loader /> : <>
 
                 <Navbar userEmail={user?.email} id={user?.uid} currentuser={currentuser} />
-                <div className='w-full  flex h-full overflow-y-hidden bg-cyan-600 p-4 gap-x-1 rounded-xl'>
+                <div className='w-full  flex h-full overflow-y-hidden bg-cyan-600 p-4 justify-between rounded-xl'>
                     <div className=' h-full bg-white overflow-y-scroll  no-scrollbar overflow-x-hidden p-0 rounded-xl'>
 
                         {usersSnapshot ? usersSnapshot.map((value, ind) => {
