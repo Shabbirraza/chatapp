@@ -400,8 +400,10 @@ const Products = () => {
                 <div className="flex flex-wrap p-2">
                     {sort ?
                         displayArr.map((value, int) => {
-                            // console.log(value)
-                            return (<Card title={value.title}
+                            console.log(int)
+                            return (<Card 
+                                key={int}
+                                title={value.title}
                                 price={value.price}
                                 description={value.description}
                                 category={value.category}
@@ -410,8 +412,10 @@ const Products = () => {
                         })
                         :
                         products.map((value, int) => {
-                            console.log(value)
-                            return (<Card title={value.title}
+                            console.log(int)
+                            return (<Card
+                                key={int}
+                                title={value.title}
                                 price={value.price}
                                 description={value.description}
                                 category={value.category}
